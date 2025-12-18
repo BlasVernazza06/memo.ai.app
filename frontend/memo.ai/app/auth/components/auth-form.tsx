@@ -57,9 +57,9 @@ export function AuthForm() {
             router.push("/dashboard")
             router.refresh()
         }
-    } catch (err: any) {
+    } catch (err) {
         // Fix: Extract string message from error object
-        const errorMessage = err?.message || (typeof err === 'string' ? err : "Ocurrió un error inesperado");
+        const errorMessage = err as string || (typeof err === 'string' ? err : "Ocurrió un error inesperado");
         setGlobalError(errorMessage)
     }
   } 
@@ -213,10 +213,10 @@ export function AuthForm() {
 
 
         {isLogin && (
-            <div className="flex justify-end">
+          <div className="flex justify-end">
             <Link 
-              href="#" 
-              className="text-sm font-medium text-primary hover:text-primary/90 transition-colors"
+              href="/auth/forgot-password" 
+              className="text-sm font-medium hover:underline text-primary hover:text-primary/90 transition-colors"
             >
               ¿Olvidaste tu contraseña?
             </Link>
