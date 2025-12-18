@@ -22,12 +22,13 @@ export const auth = betterAuth({
     emailAndPassword: {
         enabled: true,
         sendResetPassword: async ({user, url}) => {
-            resend.emails.send({
-                from: "Memo AI <onboarding@memo.ai>",
+            await resend.emails.send({
+                // CAMBIA ESTO: Resend solo permite este remitente si no tienes dominio verificado
+                from: "Memo AI <onboarding@resend.dev>", 
                 to: user.email,
-                subject: "Reset Password",
-                react: ForgotPasswordEmail ({username:user.name, resetUrl:url}),
-            })
+                subject: "Restablecer contraseña",
+                react: ForgotPasswordEmail({ username: user.name, resetUrl: url }),
+            });
         }
     },
     database: drizzleAdapter(db, {

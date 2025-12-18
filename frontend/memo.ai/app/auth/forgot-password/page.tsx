@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label"
 import Link from "next/link"
 import { ArrowLeft, CheckCircle2 } from "lucide-react"
 import { ForgotPasswordFormValues, forgotPasswordSchema } from "@/lib/schemas/auth-schema"
-import { authClient } from "@/lib/auth-client"
+import { forgetPassword } from "@/lib/actions/auth-actions"
 
 export default function ForgotPasswordPage() {
     const [isSubmitted, setIsSubmitted] = useState(false)
@@ -25,16 +25,21 @@ export default function ForgotPasswordPage() {
     const onSubmit = async (values: ForgotPasswordFormValues) => {
         setError(null)
         try {
-            const {error} = await authClient.requestPasswordReset({
+            const result = await forgetPassword({
                 email: values.email,
-                redirectTo: "/reset-password"
+                redirectTo: "/auth/reset-password",
             })
-            setIsSubmitted(true)
+            
+            if (!result.success) {
+                setError(result.error || "Error al enviar el correo")
+            } else {
+                setIsSubmitted(true)
+            }
         } catch (err) {
-            setError("Ocurrió un error al intentar enviar el correo. Inténtalo de nuevo.")
+            setError("Ocurrió un error inesperado")
         }
     }
-
+    
     if (isSubmitted) {
         return (
             <div className="text-center space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
