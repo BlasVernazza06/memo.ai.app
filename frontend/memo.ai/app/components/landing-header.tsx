@@ -87,12 +87,12 @@ export default function Header({ user }: { user: User | null }) {
                                 <Button
                                     variant={"ghost"}
                                     size="icon"
-                                    className="rounded-full h-9 w-9 overflow-hidden"
+                                    className="rounded-full h-9 w-9"
                                 >
                                     {user.image ? (
                                         <Image src={user.image} alt={user.name || "User"} width={36} height={36} />
                                     ) : (
-                                        <div className="w-full h-full bg-primary/10 flex items-center justify-center text-xs font-bold text-primary">
+                                        <div className="w-full h-full bg-primary/10 border-1 border-black rounded-full flex items-center justify-center text-xs font-bold text-primary">
                                             {user.name?.charAt(0) || "U"}
                                         </div>
                                     )}
