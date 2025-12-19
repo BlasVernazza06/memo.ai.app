@@ -57,9 +57,23 @@ export function AuthForm() {
             router.push("/dashboard")
             router.refresh()
         }
-    } catch (err: any) {
-        // Fix: Extract string message from error object
-        const errorMessage = err?.message || (typeof err === 'string' ? err : "Ocurrió un error inesperado");
+    } catch (err: unknown) {
+        // Properly extract string message from error object
+        let rawMessage = "Ocurrió un error inesperado";
+        if (err instanceof Error) {
+            rawMessage = err.message;
+        } else if (typeof err === 'string') {
+            rawMessage = err;
+        }
+        const errorTranslations: Record<string, string> = {
+            "Invalid email or password": "Correo o contraseña incorrectos.",
+            "Email already in use": "Este correo ya está registrado.",
+            "User not found": "El usuario no existe.",
+            "Password is too short": "La contraseña es muy corta.",
+            "Network Error": "Error de conexión. Revisa tu internet.",
+            "Internal Server Error": "Error en el servidor. Inténtalo más tarde."
+        }
+        const errorMessage = errorTranslations[rawMessage] || rawMessage;
         setGlobalError(errorMessage)
     }
   } 
@@ -213,10 +227,10 @@ export function AuthForm() {
 
 
         {isLogin && (
-            <div className="flex justify-end">
+          <div className="flex justify-end">
             <Link 
-              href="#" 
-              className="text-sm font-medium text-primary hover:text-primary/90 transition-colors"
+              href="/auth/forgot-password" 
+              className="text-sm font-medium hover:underline underline-offset-4 text-primary hover:text-primary/90 transition-colors"
             >
               ¿Olvidaste tu contraseña?
             </Link>

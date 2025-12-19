@@ -48,3 +48,33 @@ export const signInWithSocial = async (provider: string) => {
         redirect(url)
     }
 };
+
+export const forgetPassword = async (data: { email: string; redirectTo?: string }) => {
+    try {
+        const result = await auth.api.requestPasswordReset({
+            body: {
+                email: data.email,
+                redirectTo: data.redirectTo || "/auth/reset-password",
+            },
+        });
+        return { success: true, data: result };
+    } catch (error) {
+        console.error("Error sending reset email:", error);
+        return { success: false, error: "No se pudo enviar el correo de recuperación" };
+    }
+};
+
+export const resetPassword = async (data: { newPassword: string; token: string }) => {
+    try {
+        const result = await auth.api.resetPassword({
+            body: {
+                newPassword: data.newPassword,
+                token: data.token,
+            },
+        });
+        return { success: true, data: result };
+    } catch (error) {
+        console.error("Error resetting password:", error);
+        return { success: false, error: "No se pudo restablecer la contraseña" };
+    }
+};

@@ -2,7 +2,11 @@ import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { db } from "@/db/drizzle"; // your drizzle instance
 import { nextCookies } from "better-auth/next-js";
-import { schema } from "@/db/schema";
+import { schema} from "@/db/schema";
+import { Resend } from "resend";
+import ForgotPasswordEmail from "@/app/auth/components/forgot-password-email";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export const auth = betterAuth({
     socialProviders: {
@@ -17,6 +21,15 @@ export const auth = betterAuth({
     },
     emailAndPassword: {
         enabled: true,
+        sendResetPassword: async ({user, url}) => {
+            await resend.emails.send({
+                // CAMBIA ESTO: Resend solo permite este remitente si no tienes dominio verificado
+                from: "Memo AI <onboarding@resend.dev>", 
+                to: user.email,
+                subject: "Restablecer contraseña",
+                react: ForgotPasswordEmail({ username: user.name, resetUrl: url }),
+            });
+        }
     },
     database: drizzleAdapter(db, {
         provider: "pg",
