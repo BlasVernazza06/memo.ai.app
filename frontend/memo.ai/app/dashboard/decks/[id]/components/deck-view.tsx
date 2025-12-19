@@ -103,41 +103,44 @@ export default function DeckView() {
     const coverImage = COVERS[DECK.id % COVERS.length];
 
     return (
-        <div className="min-h-screen pb-20 relative">
-            {/* Banner Hero */}
-            <div className="relative w-full h-[50vh] min-h-[450px] overflow-hidden">
+        <div className="min-h-screen pb-20">
+            {/* Fixed Background Hero - only the image */}
+            <div className="fixed top-0 left-0 right-0 h-[60vh] min-h-[450px] max-h-[700px] -z-10">
                 <Image 
                     src={coverImage} 
                     alt="Deck Cover"
                     fill
                     unoptimized
                     priority
-                    className="object-cover transform hover:scale-105 transition-transform duration-2000"
+                    className="object-cover"
                 />
-                
-                {/* Advanced Gradient Overlay */}
-                <div className="absolute inset-0 bg-linear-to-b from-slate-900/30 via-slate-900/60 to-slate-50" />
-                <div className="absolute inset-0 bg-linear-to-t from-slate-50 via-transparent to-transparent opacity-90" />
-                
-                <div className="container max-w-7xl mx-auto px-4 h-full relative z-10 flex flex-col pt-8 pb-12 justify-end">
-                    {/* Navigation */}
-                    <motion.div 
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        className="absolute top-8 left-4 "
-                    >
-                        <Link href="/dashboard" className="inline-flex items-center text-sm font-bold text-white/80 hover:text-white bg-black/20 hover:bg-black/40 backdrop-blur-md pl-2 pr-3 py-1 rounded-full transition-all group">
-                            <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
-                            Dashboard
-                        </Link>
-                    </motion.div>
+                {/* Gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-b from-slate-900/40 via-slate-900/60 to-slate-50" />
+            </div>
 
-                    {/* Hero Content */}
-                    <div className="grid lg:grid-cols-2 gap-8 items-end">
+            {/* Content Container - flows naturally */}
+            <div className="relative">
+                {/* Hero Section with transparent background */}
+                <div className="pt-4 pb-8">
+                    <div className="max-w-7xl mx-auto px-4">
+                        {/* Navigation */}
+                        <motion.div 
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.5 }}
+                            className="mb-6"
+                        >
+                            <Link href="/dashboard" className="inline-flex items-center text-sm font-bold text-white/80 hover:text-white bg-black/20 hover:bg-black/40 backdrop-blur-md pl-2 pr-3 py-1 rounded-full transition-all group">
+                                <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
+                                Dashboard
+                            </Link>
+                        </motion.div>
+
+                        {/* Hero Content */}
                         <motion.div 
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="space-y-4"
+                            className="space-y-4 max-w-2xl"
                         >
                             <div className="flex items-center gap-3">
                                 <span className="px-3 py-1 rounded-lg bg-indigo-600/90 text-white backdrop-blur-md text-[10px] font-extrabold uppercase tracking-widest shadow-lg shadow-indigo-500/20">
@@ -148,10 +151,10 @@ export default function DeckView() {
                                 </span>
                             </div>
                             
-                            <h1 className="text-4xl md:text-6xl font-bold text-white leading-tight tracking-tighter drop-shadow-sm">
+                            <h1 className="text-4xl md:text-5xl font-bold text-white leading-tight tracking-tighter drop-shadow-sm">
                                 {DECK.title}
                             </h1>
-                            <p className="text-lg text-slate-600 font-medium leading-relaxed max-w-xl">
+                            <p className="text-lg text-slate-600 font-medium leading-relaxed">
                                 {DECK.description}
                             </p>
                             
@@ -166,9 +169,9 @@ export default function DeckView() {
                         </motion.div>
                     </div>
                 </div>
-            </div>
 
-            <main className="container max-w-7xl mx-auto px-4 -mt-8 relative z-20">
+                {/* Main Content - continues in same flow */}
+                <main className="max-w-7xl mx-auto px-4 pt-8">
                 <div className="grid lg:grid-cols-[260px_1fr_320px] gap-8 items-start">
                     
                     {/* LEFT COLUMN: Table of Contents & Info */}
@@ -260,7 +263,7 @@ export default function DeckView() {
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ delay: 0.5 + (index * 0.1) }}
                                         whileHover={{ y: -4, scale: 1.02 }}
-                                        className={`group flex flex-col text-left p-6 border border-slate-150 shadow-2xl shadow-slate-200/40 rounded-3xl hover:border-transparent hover:shadow-2xl hover:shadow-${mode.color.split('-')[1]}-500/20 transition-all duration-300 relative overflow-hidden h-full`}
+                                        className={`group flex flex-col text-left p-6 bg-white border border-slate-150 shadow-2xl shadow-slate-200/40 rounded-3xl hover:border-transparent hover:shadow-2xl hover:shadow-${mode.color.split('-')[1]}-500/20 transition-all duration-300 relative overflow-hidden h-full`}
                                     >
                                         <div className={`absolute inset-0 bg-linear-to-br ${mode.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
                                         
@@ -453,6 +456,7 @@ export default function DeckView() {
                     </motion.div>
                 </div>
             </main>
+            </div>
         </div>
     );
 }
