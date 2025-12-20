@@ -6,6 +6,9 @@ import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { User } from "better-auth";
 import { Button } from "@/components/ui/button";
+import AuthDesktopButtons from "./auth-components/auth-desktop-buttons";
+import LoggedUserButtons from "./auth-components/logged-user-butons";
+import AuthMobileButtons from "./auth-components/auth-mobile-buttons";
 
 const navLinks = [
     {
@@ -77,42 +80,9 @@ export default function Header({ user }: { user: User | null }) {
                     {/* Desktop Auth Buttons */}
                     <div className="hidden lg:flex items-center gap-3">
                         {user ? (
-                            <div className="flex items-center gap-3" >
-                                <Link 
-                                    href="/dashboard" 
-                                    className="bg-primary/10 border border-primary/30 px-2 py-1 rounded-lg text-xs text-primary font-medium transition-all duration-200"
-                                >
-                                    Dashboard
-                                </Link>
-                                <Button
-                                    variant={"ghost"}
-                                    size="icon"
-                                    className="rounded-full h-9 w-9"
-                                >
-                                    {user.image ? (
-                                        <Image src={user.image} alt={user.name || "User"} width={36} height={36} />
-                                    ) : (
-                                        <div className="w-full h-full bg-primary/10 border-1 border-black rounded-full flex items-center justify-center text-xs font-bold text-primary">
-                                            {user.name?.charAt(0) || "U"}
-                                        </div>
-                                    )}
-                                </Button>
-                            </div>
+                            <LoggedUserButtons user={user} />
                         ) : (
-                            <>
-                                <Link 
-                                    href="/auth?authForm=login" 
-                                    className="hover:bg-accent border border-transparent hover:border-accent-foreground/10 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200"
-                                >
-                                    Iniciar Sesión
-                                </Link>
-                                <Link 
-                                    href="/auth?authForm=register" 
-                                    className="bg-primary rounded-lg px-5 py-2 text-sm font-medium text-white hover:bg-primary/90 transition-colors duration-200"
-                                >
-                                    Registrarse
-                                </Link>
-                            </>
+                            <AuthDesktopButtons />
                         )}
                     </div>
 
@@ -159,22 +129,7 @@ export default function Header({ user }: { user: User | null }) {
                             Dashboard
                         </Link>
                     ) : (
-                        <>
-                            <Link 
-                                href="/auth?authForm=login"
-                                onClick={() => setIsOpen(false)}
-                                className="block px-4 py-3 rounded-lg hover:bg-accent text-sm font-medium transition-colors"
-                            >
-                                Iniciar Sesión
-                            </Link>
-                            <Link 
-                                href="/auth?authForm=register"
-                                onClick={() => setIsOpen(false)}
-                                className="block bg-primary text-center rounded-lg px-4 py-3 text-sm font-medium text-white hover:bg-primary/90 transition-colors"
-                            >
-                                Registrarse
-                            </Link>
-                        </>
+                        <AuthMobileButtons onClose={() => setIsOpen(false)} />
                     )}
                 </div>
             </div>
