@@ -8,10 +8,10 @@ const plans = [
     price: "0",
     description: "Para probar la magia",
     features: [
-      "Hasta 3 PDFs al mes", // Aumenté un poco para generar hábito
+      "Hasta 3 documentos al mes",
       "50 flashcards por documento",
-      "Modo de estudio web",
-      "Racha de estudio básica"
+      "Modo de estudio básico",
+      "Quizzes y Verdadero/Falso"
     ],
     cta: "Comenzar gratis",
     popular: false
@@ -19,32 +19,17 @@ const plans = [
   {
     name: "Pro",
     price: "4.99",
-    description: "Para aprobar exámenes",
+    description: "Para aprobar tus exámenes",
     features: [
-      "PDFs ilimitados",
+      "Documentos ilimitados",
       "Flashcards ilimitadas",
-      "Exportar a Anki (.apkg)", // ¡CRUCIAL! Tu propuesta de valor única
-      "Modo Simulacro de Examen", // Más atractivo que "Tareas"
-      "Estadísticas de progreso",
-      "Soporte prioritario"
+      "Exportar a Anki (.apkg)",
+      "Resúmenes con IA",
+      "Estadísticas de progreso"
     ],
     cta: "Elegir Pro",
     popular: true
   },
-  {
-    name: "Equipo",
-    price: "9.99",
-    description: "Para grupos de estudio",
-    features: [
-      "Todo lo de Pro incluido",
-      "Hasta 5 miembros",
-      "Compartir mazos al instante",
-      "Ranking competitivo grupal",
-      "Gestión de roles"
-    ],
-    cta: "Crear grupo",
-    popular: false
-  }
 ];
 
 export default function PricingSection() {
@@ -60,7 +45,7 @@ export default function PricingSection() {
           </p>
         </div>
         
-        <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
           {plans.map((plan) => (
             <div 
               key={plan.name}

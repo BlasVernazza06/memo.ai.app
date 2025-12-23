@@ -11,7 +11,7 @@ import Link from "next/link";
 
 export default function DashHeader() {
     return (
-        <header className="sticky top-0 z-30 w-full bg-white backdrop-blur-xl border-b border-slate-200/50 ">
+        <header className="fixed top-0 left-0 right-0 z-50 w-full bg-white/95 backdrop-blur-xl border-b border-slate-200/50 ">
             <div className="container mx-auto max-w-7xl px-4 h-16 flex items-center justify-between gap-4">
                 <Link href="/dashboard" className="flex items-center gap-2 font-bold text-xl tracking-tight text-slate-900 group">
                     <div className="relative group-hover:scale-105 transition-transform duration-300">

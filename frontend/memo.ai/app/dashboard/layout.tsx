@@ -1,4 +1,5 @@
 import DashHeader from "./components/dash-header";
+import FloatingCreateButton from "./components/floating-create-button";
 
 export default async function DashboardLayout({
     children,
@@ -11,9 +12,12 @@ export default async function DashboardLayout({
             
             {/* CAMBIO CLAVE: Quitamos 'container', 'px-4' y 'py-8' de aquí. 
                 Ahora 'main' ocupa todo el ancho y no tiene relleno forzado. */}
-            <main className="flex-1 w-full relative">
+            <main className="flex-1 w-full relative pt-16">
                 {children}
             </main>
+
+            {/* Floating Action Button */}
+            <FloatingCreateButton />
         </div>
     );
 }
