@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from "motion/react"
-import { BrainCircuit, Play, FileText, Clock } from "lucide-react"
+import { BrainCircuit, Play, FileText, Clock, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import Image from "next/image"
@@ -12,6 +12,7 @@ interface Deck {
     progress: number;
     cards: number;
     date: string;
+    isNew?: boolean;
 }
 
 interface DeckCardProps {
@@ -50,6 +51,20 @@ export default function DeckCard({ doc }: DeckCardProps) {
                     />
                     <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent" />
                     
+                    {/* Badge "Nuevo" */}
+                    {doc.isNew && (
+                        <motion.div 
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            className="absolute top-3 left-3 z-10"
+                        >
+                            <div className="px-2 py-1 bg-primary text-white rounded-full text-[10px] font-bold flex items-center gap-1 shadow-lg shadow-primary/30">
+                                <Sparkles className="w-3 h-3" />
+                                Nuevo
+                            </div>
+                        </motion.div>
+                    )}
+
                     <div className="absolute top-3 right-3 z-10">
                         <div className="px-2.5 py-1 bg-white/20 backdrop-blur-md rounded-full text-[10px] font-bold text-white shadow-sm flex items-center gap-1.5 border border-white/30">
                            <div className="w-1.5 h-1.5 rounded-full bg-indigo-400 shadow-[0_0_10px_rgba(129,140,248,0.8)]" />

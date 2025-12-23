@@ -1,4 +1,5 @@
 import DashHeader from "./components/dash-header";
+import FloatingCreateButton from "./components/floating-create-button";
 
 export default async function DashboardLayout({
     children,
@@ -14,6 +15,9 @@ export default async function DashboardLayout({
             <main className="flex-1 w-full relative pt-16">
                 {children}
             </main>
+
+            {/* Floating Action Button */}
+            <FloatingCreateButton />
         </div>
     );
 }
